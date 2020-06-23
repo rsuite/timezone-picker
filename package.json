@@ -16,20 +16,20 @@
 		"src"
 	],
 	"scripts": {
-		"start": "npm run dev",
+		"start": "yarn dev",
 		"dev": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --mode development --open",
-		"build": "npm run lint && npm run build.lib && npm run build.types && npm run build.resources",
+		"build": "yarn lint && yarn build.lib && yarn build.types && yarn build.resources",
 		"build.lib": "rimraf lib && cross-env NODE_ENV=production babel src --extensions '.ts,.tsx,.js,.jsx' --out-dir lib",
 		"build.docs": "rimraf build && cross-env NODE_ENV=production webpack --mode production",
 		"build.types": "tsc --declaration --emitDeclarationOnly --declarationDir lib -p tsconfig-only-src.json",
 		"build.resources": "ncp src/styles lib/styles && ncp src/assets lib/assets",
-		"lint": "npm run lint.js && npm run lint.style",
+		"lint": "yarn lint.js && yarn lint.style",
 		"lint.js": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx src examples",
 		"lint.style": "stylelint \"src/**/*.less\"",
 		"lint:fix": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx --fix src examples",
 		"test": "jest --coverage",
 		"test:watch": "jest --watch",
-		"release": "npm run build && npm publish --registry http://npm.hypers.cc"
+		"release": "yarn build && npm publish --registry http://npm.hypers.cc"
 	},
 	"repository": {
 		"type": "git",
@@ -39,8 +39,8 @@
 		"rsuite",
 		"react"
 	],
-	"author": "leihanchenzhou@outlook.com <leihanchenzhou@outlook.com>",
-	"license": "ISC",
+	"author": "leihancn <leihanchenzhou@outlook.com>",
+	"license": "MIT",
 	"devDependencies": {
 		"@babel/cli": "^7.8.4",
 		"@babel/core": "^7.9.6",
@@ -103,7 +103,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run lint",
+			"pre-commit": "yarn lint",
 			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 		}
 	},
