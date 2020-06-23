@@ -29,7 +29,8 @@
 		"lint:fix": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx --fix src examples",
 		"test": "jest --coverage",
 		"test:watch": "jest --watch",
-		"release": "yarn build && npm publish --registry http://npm.hypers.cc"
+		"release": "yarn build && npm publish",
+		"cz": "git add . && git cz"
 	},
 	"repository": {
 		"type": "git",
