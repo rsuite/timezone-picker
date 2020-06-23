@@ -1,1 +1,1 @@
-export { RsLogo } from './demo/RsLogo';
+export { RsLogo } from './RsLogo';
