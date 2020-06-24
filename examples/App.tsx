@@ -1,14 +1,12 @@
 import React from 'react';
-import TimezonePicker from '../src';
+import WithDatePicker from './withDatePicker';
 
 const App = () => {
-  return <div>
-
-    <TimezonePicker>
-
-    </TimezonePicker>
-
-  </div>;
+  return (
+    <div>
+      <WithDatePicker />
+    </div>
+  );
 };
 
 export default App;
