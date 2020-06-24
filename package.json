@@ -117,5 +117,8 @@
 		"> 1%",
 		"last 2 versions",
 		"ie >= 10"
-	]
+	],
+	"dependencies": {
+		"dayjs": "^1.8.28"
+	}
 }

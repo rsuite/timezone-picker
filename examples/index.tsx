@@ -3,13 +3,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { RsLogo } from '../src';
 import './index.less';
+import App from './App';
 
-ReactDOM.render(
-  <>
-    <RsLogo width={48} height={48} />
-  </>,
-  document.getElementById('app')
-);
+ReactDOM.render(<App />, document.getElementById('app'));

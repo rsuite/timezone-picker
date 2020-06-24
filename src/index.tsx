@@ -1,1 +1,5 @@
-export { RsLogo } from './RsLogo';
+import TimezonePicker from './TimezonePicker';
+
+export { TimezonePicker };
+
+export default TimezonePicker;

@@ -10,6 +10,8 @@
     "jsx": "react"
   },
   "include": [
+    "./src/assets/index.d.ts",
+    "./src/index.d.ts",
     "./src/**/*",
     "./examples/**/*"
   ]
