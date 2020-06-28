@@ -211,16 +211,6 @@ export const WORLD_MAIN_CITY_TIMEZONE_LIST: TimezoneListItem[] = [
     timezone: '-6',
   },
   {
-    location: 'Indiana',
-    continent: 'America',
-    timezone: '-6',
-  },
-  {
-    location: 'Indiana',
-    continent: 'America',
-    timezone: '-6',
-  },
-  {
     location: 'Managua',
     continent: 'America',
     timezone: '-6',
@@ -247,16 +237,6 @@ export const WORLD_MAIN_CITY_TIMEZONE_LIST: TimezoneListItem[] = [
   },
   {
     location: 'Monterrey',
-    continent: 'America',
-    timezone: '-6',
-  },
-  {
-    location: 'North Dakota',
-    continent: 'America',
-    timezone: '-6',
-  },
-  {
-    location: 'North Dakota',
     continent: 'America',
     timezone: '-6',
   },
@@ -361,42 +341,12 @@ export const WORLD_MAIN_CITY_TIMEZONE_LIST: TimezoneListItem[] = [
     timezone: '-5',
   },
   {
-    location: 'Indiana',
-    continent: 'America',
-    timezone: '-5',
-  },
-  {
-    location: 'Indiana',
-    continent: 'America',
-    timezone: '-5',
-  },
-  {
-    location: 'Indiana',
-    continent: 'America',
-    timezone: '-5',
-  },
-  {
-    location: 'Indiana',
-    continent: 'America',
-    timezone: '-5',
-  },
-  {
-    location: 'Indiana',
-    continent: 'America',
-    timezone: '-5',
-  },
-  {
     location: 'Iqaluit',
     continent: 'America',
     timezone: '-5',
   },
   {
     location: 'Jamaica',
-    continent: 'America',
-    timezone: '-5',
-  },
-  {
-    location: 'Kentucky',
     continent: 'America',
     timezone: '-5',
   },
@@ -657,61 +607,6 @@ export const WORLD_MAIN_CITY_TIMEZONE_LIST: TimezoneListItem[] = [
   },
   {
     location: 'Araguaina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
-    continent: 'America',
-    timezone: '-3',
-  },
-  {
-    location: 'Argentina',
     continent: 'America',
     timezone: '-3',
   },

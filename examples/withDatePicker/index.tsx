@@ -7,12 +7,7 @@ export default () => {
   const [currentDate, setCurrentDate] = useState<Date>();
   return (
     <div>
-      <TimezonePicker
-        onChange={(value) => {
-          console.log(value);
-          // setCurrentDate(value);
-        }}
-      />
+      <TimezonePicker />
       <DatePicker format="HH:mmA" value={currentDate} />
     </div>
   );

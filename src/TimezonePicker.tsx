@@ -21,13 +21,24 @@ export interface TimezonePickerDataItem extends TimezoneListItem {
   utcOffset: number;
 }
 
+const UNHANDLED_PROPS = [
+  'data',
+  'valueKey',
+  'labelKey',
+  'renderMenuItem',
+  'renderExtraFooter',
+  'renderValue',
+  'groupBy',
+];
+
 type OmitSelectPickerProps =
   | 'data'
   | 'valueKey'
   | 'labelKey'
   | 'renderMenuItem'
   | 'renderExtraFooter'
-  | 'renderValue';
+  | 'renderValue'
+  | 'groupBy';
 
 export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
   value?: TimezonePickerValue;
@@ -59,14 +70,9 @@ export const TimezonePicker = ({
   onClean,
   value: propsValue,
   defaultValue,
-  data: propsData,
-  renderValue: propsRenderValue,
-  valueKey: propsValueKey,
-  labelKey: propsLabelKey,
-  renderMenuItem: propsRenderMenuItem,
-  renderExtraFooter: propsRenderExtraFooter,
   ...props
 }: TimezonePickerProps) => {
+  props = _.omit(props, UNHANDLED_PROPS);
   const [value, setValue] = useState<TimezonePickerValue>(propsValue || defaultValue);
   const data = useMemo<TimezonePickerDataItem[]>(
     () => transformTimezonePickerData(WORLD_MAIN_CITY_TIMEZONE_LIST),
