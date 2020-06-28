@@ -1,11 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { SelectPicker, Icon, Toggle } from 'rsuite';
+import { Icon, SelectPicker, Toggle } from 'rsuite';
 import { SelectPickerProps } from 'rsuite/lib/SelectPicker';
 import utcPlugin from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import { stylePrefix, transformTimezonePickerData } from './utils';
-import { WORLD_MAIN_CITY_TIMEZONE_LIST, TimezoneListItem } from './config';
+import { TimezoneListItem, WORLD_MAIN_CITY_TIMEZONE_LIST } from './config';
 import { ItemDataType } from 'rsuite/lib/@types/common';
+import _ from 'lodash';
 
 dayjs.extend(utcPlugin);
 
@@ -15,21 +16,30 @@ export interface TimezonePickerValue {
   utcOffset: number;
 }
 
+export interface TimezonePickerDataItem extends TimezoneListItem {
+  region: string;
+  utcOffset: number;
+}
+
 type OmitSelectPickerProps =
   | 'data'
   | 'valueKey'
   | 'labelKey'
   | 'renderMenuItem'
-  | 'renderExtraFooter';
+  | 'renderExtraFooter'
+  | 'renderValue';
 
 export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
+  value?: TimezonePickerValue;
+  defaultValue?: TimezonePickerValue;
   disableContinentGroup?: boolean;
-  onChange?: (timezone: string) => void;
-}
-
-export interface TimezonePickerDataItem extends TimezoneListItem {
-  region: string;
-  utcOffset: number;
+  onSelect?: (
+    value: TimezonePickerValue,
+    item: TimezonePickerDataItem,
+    event: React.SyntheticEvent
+  ) => void;
+  onChange?: (value: TimezonePickerValue, event: React.SyntheticEvent<any>) => void;
+  placeholder?: string | React.ReactNode;
 }
 
 const prefix = stylePrefix('timezone-picker');
@@ -44,15 +54,20 @@ const renderValue = (content) => (
 export const TimezonePicker = ({
   disableContinentGroup = false,
   placeholder = 'Select Timezone',
-  renderValue: renderValueFromProps,
   onChange,
+  onSelect,
+  onClean,
+  value: propsValue,
+  defaultValue,
   data: propsData,
+  renderValue: propsRenderValue,
   valueKey: propsValueKey,
   labelKey: propsLabelKey,
   renderMenuItem: propsRenderMenuItem,
   renderExtraFooter: propsRenderExtraFooter,
   ...props
 }: TimezonePickerProps) => {
+  const [value, setValue] = useState<TimezonePickerValue>(propsValue || defaultValue);
   const data = useMemo<TimezonePickerDataItem[]>(
     () => transformTimezonePickerData(WORLD_MAIN_CITY_TIMEZONE_LIST),
     []
@@ -91,20 +106,53 @@ export const TimezonePicker = ({
     [meridian]
   );
 
-  const handleChange = useCallback(
-    (value: string) => {
-      const target = data.find((item) => item[valueKey] === value);
-      if (!target || !onChange) {
-        return;
-      }
-
-      onChange(target.timezone);
+  const findItem = useCallback(
+    (region: string) => {
+      return data.find((item) => item[valueKey] === region);
     },
-    [data, onChange, valueKey]
+    [valueKey]
+  );
+
+  const pickValue = useCallback<(target: TimezonePickerDataItem) => TimezonePickerValue>(
+    (target) => _.pick(target, ['region', 'timezone', 'utcOffset']),
+    []
+  );
+
+  const handleChange = useCallback(
+    (value: string, event: React.SyntheticEvent<any>) => {
+      const target = findItem(value);
+      const nextValue: TimezonePickerValue = pickValue(target);
+
+      onChange?.(nextValue, event);
+    },
+    [data, onChange, valueKey, findItem, pickValue]
+  );
+
+  const handleSelect = useCallback(
+    (
+      _value: string,
+      item: ItemDataType & TimezonePickerDataItem,
+      event: React.SyntheticEvent<any>
+    ) => {
+      const nextValue = pickValue(item);
+      setValue(nextValue);
+      onSelect?.(nextValue, item, event);
+    },
+    [onSelect, findItem, pickValue]
+  );
+
+  const handleClean = useCallback(
+    (event: React.SyntheticEvent<any>) => {
+      setValue(null);
+      onClean?.(event);
+      onChange?.(null, event);
+    },
+    [onClean, onChange]
   );
 
   return (
     <SelectPicker
+      value={value?.region}
       data={data}
       labelKey={labelKey}
       valueKey={valueKey}
@@ -114,6 +162,8 @@ export const TimezonePicker = ({
       renderExtraFooter={renderExtraFooter}
       renderMenuItem={renderMenuItem}
       onChange={handleChange}
+      onSelect={handleSelect}
+      onClean={handleClean}
       {...props}
     />
   );
