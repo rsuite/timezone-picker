@@ -1,3 +1,5 @@
+import { TimezoneListItem } from './config';
+
 export const stylePrefix = (prefix: string, delimiter: string = '-') => (
   styles: string | string[]
 ) => {
@@ -20,3 +22,10 @@ export const utcOffset = (utc: string) => {
 
   return min !== undefined ? hour + +min : hour;
 };
+
+export const transformTimezonePickerData = (data: TimezoneListItem[]) =>
+  data.map((item) => ({
+    region: `${item.continent}/${item.location}`,
+    utcOffset: utcOffset(item.timezone),
+    ...item,
+  }));
