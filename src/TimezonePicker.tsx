@@ -70,7 +70,6 @@ export const TimezonePicker = ({
   const renderExtraFooter = useCallback(() => {
     return (
       <div className={prefix('extra-footer')}>
-        <div>TIMEZONE</div>
         <Toggle
           checked={meridian}
           onChange={setMeridian}
