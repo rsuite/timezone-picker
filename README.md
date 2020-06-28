@@ -41,7 +41,7 @@ interface TimezonePickerValue {
 | disableContinentGroup | boolean`(false)`                                                                   | 禁用按大洲分组                        |
 | onSelect             | (value: TimezonePickerValue, item: [DataItemType](#types), event: React.SyntheticEvent) => void | 选项被点击选择后的回调函数  |
 | onChange             | (value: TimezonePickerValue, event: React.SyntheticEvent) => void                   | `value`发生变化的时候触发的回调函数     |
-| placeholder          | string ｜React.Node                                                            | 占位符                              |
+|           |                                                         |                              |
 
 此外 TimezonePicker 还继承了大多数的 @rsuite/SelectPicker Props
 

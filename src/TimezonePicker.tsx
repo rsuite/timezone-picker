@@ -21,24 +21,9 @@ export interface TimezonePickerDataItem extends TimezoneListItem {
   utcOffset: number;
 }
 
-const UNHANDLED_PROPS = [
-  'data',
-  'valueKey',
-  'labelKey',
-  'renderMenuItem',
-  'renderExtraFooter',
-  'renderValue',
-  'groupBy',
-];
+const UNHANDLED_PROPS = ['data', 'valueKey', 'labelKey', 'renderExtraFooter', 'groupBy'];
 
-type OmitSelectPickerProps =
-  | 'data'
-  | 'valueKey'
-  | 'labelKey'
-  | 'renderMenuItem'
-  | 'renderExtraFooter'
-  | 'renderValue'
-  | 'groupBy';
+type OmitSelectPickerProps = 'data' | 'valueKey' | 'labelKey' | 'renderExtraFooter' | 'groupBy';
 
 export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
   value?: TimezonePickerValue;
@@ -50,7 +35,6 @@ export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectP
     event: React.SyntheticEvent
   ) => void;
   onChange?: (value: TimezonePickerValue, event: React.SyntheticEvent<any>) => void;
-  placeholder?: string | React.ReactNode;
 }
 
 const prefix = stylePrefix('timezone-picker');
@@ -64,7 +48,7 @@ const renderValue = (content) => (
 
 export const TimezonePicker = ({
   disableContinentGroup = false,
-  placeholder = 'Select Timezone',
+  placeholder,
   onChange,
   onSelect,
   onClean,
@@ -163,7 +147,7 @@ export const TimezonePicker = ({
       labelKey={labelKey}
       valueKey={valueKey}
       groupBy={!disableContinentGroup && 'continent'}
-      placeholder={renderValue('Select Timezone')}
+      placeholder={placeholder ?? renderValue('Select Timezone')}
       renderValue={renderValue}
       renderExtraFooter={renderExtraFooter}
       renderMenuItem={renderMenuItem}
