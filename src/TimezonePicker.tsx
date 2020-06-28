@@ -1,14 +1,25 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Icon, SelectPicker, Toggle } from 'rsuite';
-import { SelectPickerProps } from 'rsuite/lib/SelectPicker';
 import utcPlugin from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
-import { stylePrefix, transformTimezonePickerData } from './utils';
-import { TimezoneListItem, WORLD_MAIN_CITY_TIMEZONE_LIST } from './config';
+import { stylePrefix, utcOffset } from './utils';
+import { WORLD_MAIN_CITY_TIMEZONE_LIST } from './config';
 import { ItemDataType } from 'rsuite/lib/@types/common';
 import _ from 'lodash';
+import { SelectPickerProps } from 'rsuite/lib/SelectPicker';
 
 dayjs.extend(utcPlugin);
+
+export interface TimezoneListItem {
+  location: string;
+  continent: string;
+  timezone: string;
+}
+
+export interface TimezonePickerDataItem extends TimezoneListItem {
+  region: string;
+  utcOffset: number;
+}
 
 export interface TimezonePickerValue {
   region: string;
@@ -16,10 +27,12 @@ export interface TimezonePickerValue {
   utcOffset: number;
 }
 
-export interface TimezonePickerDataItem extends TimezoneListItem {
-  region: string;
-  utcOffset: number;
-}
+export const transformTimezonePickerData = (data: TimezoneListItem[]): TimezonePickerDataItem[] =>
+  data.map((item) => ({
+    region: `${item.continent}/${item.location}`,
+    utcOffset: utcOffset(item.timezone),
+    ...item,
+  }));
 
 const UNHANDLED_PROPS = ['data', 'valueKey', 'labelKey', 'renderExtraFooter', 'groupBy'];
 
@@ -39,7 +52,7 @@ export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectP
 
 const prefix = stylePrefix('timezone-picker');
 
-const renderValue = (content) => (
+const renderValue = (content): React.ReactNode => (
   <div>
     <Icon icon="globe2" className={prefix('placeholder-icon')} />
     {content}
@@ -55,7 +68,7 @@ export const TimezonePicker = ({
   value: propsValue,
   defaultValue,
   ...props
-}: TimezonePickerProps) => {
+}: TimezonePickerProps): JSX.Element => {
   props = _.omit(props, UNHANDLED_PROPS);
   const [value, setValue] = useState<TimezonePickerValue>(propsValue || defaultValue);
   const data = useMemo<TimezonePickerDataItem[]>(
@@ -67,8 +80,8 @@ export const TimezonePicker = ({
   // 12小时制，被勾选的时候为12小时制，否则为24小时制
   const [meridian, setMeridian] = useState<boolean>(false);
 
-  const renderExtraFooter = useCallback(() => {
-    return (
+  const renderExtraFooter = useCallback(
+    (): React.ReactNode => (
       <div className={prefix('extra-footer')}>
         <Toggle
           checked={meridian}
@@ -78,11 +91,12 @@ export const TimezonePicker = ({
           unCheckedChildren="24h"
         />
       </div>
-    );
-  }, [meridian]);
+    ),
+    [meridian]
+  );
 
   const renderMenuItem = useCallback(
-    (label: React.ReactNode, item: ItemDataType & TimezonePickerDataItem) => {
+    (label: React.ReactNode, item: ItemDataType & TimezonePickerDataItem): React.ReactNode => {
       const { utcOffset } = item;
       const template = meridian ? 'hh:mma' : 'HH:mm';
       return (
@@ -97,9 +111,9 @@ export const TimezonePicker = ({
 
   const findItem = useCallback(
     (region: string) => {
-      return data.find((item) => item[valueKey] === region);
+      return data.find((item): boolean => item[valueKey] === region);
     },
-    [valueKey]
+    [valueKey, data]
   );
 
   const pickValue = useCallback<(target: TimezonePickerDataItem) => TimezonePickerValue>(
@@ -114,7 +128,7 @@ export const TimezonePicker = ({
 
       onChange?.(nextValue, event);
     },
-    [data, onChange, valueKey, findItem, pickValue]
+    [onChange, findItem, pickValue]
   );
 
   const handleSelect = useCallback(
@@ -127,7 +141,7 @@ export const TimezonePicker = ({
       setValue(nextValue);
       onSelect?.(nextValue, item, event);
     },
-    [onSelect, findItem, pickValue]
+    [onSelect, pickValue]
   );
 
   const handleClean = useCallback(

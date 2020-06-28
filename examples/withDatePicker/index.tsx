@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DatePicker } from 'rsuite';
 import TimezonePicker from '../../src';
 
-export default () => {
-  // @ts-ignore
-  const [currentDate, setCurrentDate] = useState<Date>();
+const WithDatePicker = (): JSX.Element => {
   return (
     <div>
       <TimezonePicker />
-      <DatePicker format="HH:mmA" value={currentDate} />
+      <DatePicker format="HH:mmA" />
     </div>
   );
 };
+
+export default WithDatePicker;

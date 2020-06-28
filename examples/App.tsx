@@ -1,7 +1,7 @@
 import React from 'react';
 import WithDatePicker from './withDatePicker';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <WithDatePicker />

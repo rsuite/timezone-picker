@@ -1,8 +1,4 @@
-export interface TimezoneListItem {
-  location: string;
-  continent: string;
-  timezone: string;
-}
+import { TimezoneListItem } from './TimezonePicker';
 
 export const WORLD_MAIN_CITY_TIMEZONE_LIST: TimezoneListItem[] = [
   {
