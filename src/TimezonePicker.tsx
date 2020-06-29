@@ -40,11 +40,12 @@ const UNHANDLED_PROPS = ['data', 'valueKey', 'labelKey', 'renderExtraFooter', 'g
 type OmitSelectPickerProps = 'data' | 'valueKey' | 'labelKey' | 'renderExtraFooter' | 'groupBy';
 
 export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
-  value?: string;
-  defaultValue?: string;
   disableContinentGroup?: boolean;
-  onSelect?: (value: string, item: TimezonePickerDataItem, event: React.SyntheticEvent) => void;
-  onChange?: (value: string, event: React.SyntheticEvent<any>) => void;
+  onSelect?: (
+    value: string,
+    item: ItemDataType & TimezonePickerDataItem,
+    event: React.SyntheticEvent
+  ) => void;
 }
 
 const prefix = stylePrefix('timezone-picker');
