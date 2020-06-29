@@ -15,7 +15,7 @@ npm i @rsuite/timezone-picker
 #### Usage
 ```typescript
 import TimezonePicker from '@rsuite/timezone-picker';
-import '@rsuite/timezone-picker/lib/less/index.less';
+import '@rsuite/timezone-picker/lib/styles/index.less';
 
 export default () => {
   return (

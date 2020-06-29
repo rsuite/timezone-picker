@@ -1,14 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Icon, SelectPicker, Toggle } from 'rsuite';
-import utcPlugin from 'dayjs/plugin/utc';
-import dayjs from 'dayjs';
 import { stylePrefix, utcOffset } from './utils';
 import { WORLD_MAIN_CITY_TIMEZONE_LIST } from './config';
 import { ItemDataType } from 'rsuite/lib/@types/common';
-import _ from 'lodash';
+import { omit, pick } from 'lodash';
 import { SelectPickerProps } from 'rsuite/lib/SelectPicker';
-
-dayjs.extend(utcPlugin);
+import { format, zonedTimeToUtc } from 'date-fns-tz';
 
 export interface TimezoneListItem {
   location: string;
@@ -69,7 +66,7 @@ export const TimezonePicker = ({
   defaultValue,
   ...props
 }: TimezonePickerProps): JSX.Element => {
-  props = _.omit(props, UNHANDLED_PROPS);
+  props = omit(props, UNHANDLED_PROPS);
   const [value, setValue] = useState<TimezonePickerValue>(propsValue || defaultValue);
   const data = useMemo<TimezonePickerDataItem[]>(
     () => transformTimezonePickerData(WORLD_MAIN_CITY_TIMEZONE_LIST),
@@ -97,12 +94,12 @@ export const TimezonePicker = ({
 
   const renderMenuItem = useCallback(
     (label: React.ReactNode, item: ItemDataType & TimezonePickerDataItem): React.ReactNode => {
-      const { utcOffset } = item;
+      const { utcOffset, region } = item;
       const template = meridian ? 'hh:mma' : 'HH:mm';
       return (
         <div className={prefix('menu-item')}>
           <div>{label}</div>
-          <div>{dayjs().utcOffset(utcOffset).format(template)}</div>
+          <div>{format(zonedTimeToUtc(new Date(), region), template)}</div>
         </div>
       );
     },
@@ -117,7 +114,7 @@ export const TimezonePicker = ({
   );
 
   const pickValue = useCallback<(target: TimezonePickerDataItem) => TimezonePickerValue>(
-    (target) => _.pick(target, ['region', 'timezone', 'utcOffset']),
+    (target) => pick(target, ['region', 'timezone', 'utcOffset']),
     []
   );
 
