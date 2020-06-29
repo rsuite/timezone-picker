@@ -1,50 +1,50 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Icon, SelectPicker, Toggle } from 'rsuite';
-import { stylePrefix, utcOffset } from './utils';
-import { WORLD_MAIN_CITY_TIMEZONE_LIST } from './config';
+import { stylePrefix } from './utils';
 import { ItemDataType } from 'rsuite/lib/@types/common';
-import { omit, pick } from 'lodash';
+import { omit } from 'lodash';
 import { SelectPickerProps } from 'rsuite/lib/SelectPicker';
-import { format, zonedTimeToUtc } from 'date-fns-tz';
+import { formatToTimeZone as format } from 'date-fns-timezone';
+import { listTimeZones } from 'timezone-support';
 
-export interface TimezoneListItem {
-  location: string;
+export interface TimezonePickerDataItem {
+  timezone: string;
   continent: string;
-  timezone: string;
+  name: string;
 }
 
-export interface TimezonePickerDataItem extends TimezoneListItem {
-  region: string;
-  utcOffset: number;
-}
+export const transformTimezonePickerData = (data: string[]): TimezonePickerDataItem[] =>
+  data.map((item) => {
+    const index = item.lastIndexOf('/');
+    let continent;
+    let name = item;
 
-export interface TimezonePickerValue {
-  region: string;
-  timezone: string;
-  utcOffset: number;
-}
+    if (!!~index) {
+      continent = item.slice(0, index);
+      name = item.slice(index + 1);
+    } else {
+      continent = 'Abbreviation';
+    }
 
-export const transformTimezonePickerData = (data: TimezoneListItem[]): TimezonePickerDataItem[] =>
-  data.map((item) => ({
-    region: `${item.continent}/${item.location}`,
-    utcOffset: utcOffset(item.timezone),
-    ...item,
-  }));
+    return {
+      timezone: item,
+      continent,
+      name,
+    };
+  });
+
+const TIME_ZONE_LIST = listTimeZones();
 
 const UNHANDLED_PROPS = ['data', 'valueKey', 'labelKey', 'renderExtraFooter', 'groupBy'];
 
 type OmitSelectPickerProps = 'data' | 'valueKey' | 'labelKey' | 'renderExtraFooter' | 'groupBy';
 
 export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
-  value?: TimezonePickerValue;
-  defaultValue?: TimezonePickerValue;
+  value?: string;
+  defaultValue?: string;
   disableContinentGroup?: boolean;
-  onSelect?: (
-    value: TimezonePickerValue,
-    item: TimezonePickerDataItem,
-    event: React.SyntheticEvent
-  ) => void;
-  onChange?: (value: TimezonePickerValue, event: React.SyntheticEvent<any>) => void;
+  onSelect?: (value: string, item: TimezonePickerDataItem, event: React.SyntheticEvent) => void;
+  onChange?: (value: string, event: React.SyntheticEvent<any>) => void;
 }
 
 const prefix = stylePrefix('timezone-picker');
@@ -67,13 +67,14 @@ export const TimezonePicker = ({
   ...props
 }: TimezonePickerProps): JSX.Element => {
   props = omit(props, UNHANDLED_PROPS);
-  const [value, setValue] = useState<TimezonePickerValue>(propsValue || defaultValue);
+  const [value, setValue] = useState<string>(propsValue ?? defaultValue);
   const data = useMemo<TimezonePickerDataItem[]>(
-    () => transformTimezonePickerData(WORLD_MAIN_CITY_TIMEZONE_LIST),
+    () => transformTimezonePickerData(TIME_ZONE_LIST),
     []
   );
-  const labelKey = 'region';
-  const valueKey = 'region';
+  const labelKey = 'name';
+  const valueKey = 'timezone';
+  const groupKey = 'continent';
   // 12小时制，被勾选的时候为12小时制，否则为24小时制
   const [meridian, setMeridian] = useState<boolean>(false);
 
@@ -94,51 +95,35 @@ export const TimezonePicker = ({
 
   const renderMenuItem = useCallback(
     (label: React.ReactNode, item: ItemDataType & TimezonePickerDataItem): React.ReactNode => {
-      const { utcOffset, region } = item;
+      const { timezone: timeZone } = item;
       const template = meridian ? 'hh:mma' : 'HH:mm';
       return (
         <div className={prefix('menu-item')}>
           <div>{label}</div>
-          <div>{format(zonedTimeToUtc(new Date(), region), template)}</div>
+          <div>{format(new Date(), template, { timeZone })}</div>
         </div>
       );
     },
     [meridian]
   );
 
-  const findItem = useCallback(
-    (region: string) => {
-      return data.find((item): boolean => item[valueKey] === region);
-    },
-    [valueKey, data]
-  );
-
-  const pickValue = useCallback<(target: TimezonePickerDataItem) => TimezonePickerValue>(
-    (target) => pick(target, ['region', 'timezone', 'utcOffset']),
-    []
-  );
-
   const handleChange = useCallback(
     (value: string, event: React.SyntheticEvent<any>) => {
-      const target = findItem(value);
-      const nextValue: TimezonePickerValue = pickValue(target);
-
-      onChange?.(nextValue, event);
+      onChange?.(value, event);
     },
-    [onChange, findItem, pickValue]
+    [onChange]
   );
 
   const handleSelect = useCallback(
     (
-      _value: string,
+      nextValue: string,
       item: ItemDataType & TimezonePickerDataItem,
       event: React.SyntheticEvent<any>
     ) => {
-      const nextValue = pickValue(item);
       setValue(nextValue);
       onSelect?.(nextValue, item, event);
     },
-    [onSelect, pickValue]
+    [onSelect]
   );
 
   const handleClean = useCallback(
@@ -152,11 +137,11 @@ export const TimezonePicker = ({
 
   return (
     <SelectPicker
-      value={value?.region}
+      value={value}
       data={data}
       labelKey={labelKey}
       valueKey={valueKey}
-      groupBy={!disableContinentGroup && 'continent'}
+      groupBy={!disableContinentGroup && groupKey}
       placeholder={placeholder ?? renderValue('Select Timezone')}
       renderValue={renderValue}
       renderExtraFooter={renderExtraFooter}
