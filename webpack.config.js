@@ -16,6 +16,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    // alias: {
+    //   rsuite: path.resolve(__dirname, '../rsuite')
+    // }
   },
   output: {
     path: path.join(__dirname, './build'),

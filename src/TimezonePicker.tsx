@@ -66,7 +66,7 @@ export const TimezonePicker = ({
   value: propsValue,
   defaultValue,
   ...props
-}: TimezonePickerProps): JSX.Element => {
+}: TimezonePickerProps): React.ReactElement<TimezonePickerProps> => {
   props = omit(props, UNHANDLED_PROPS);
   const [value, setValue] = useState<string>(propsValue ?? defaultValue);
   const data = useMemo<TimezonePickerDataItem[]>(
@@ -78,6 +78,14 @@ export const TimezonePicker = ({
   const groupKey = 'continent';
   // 12小时制，被勾选的时候为12小时制，否则为24小时制
   const [meridian, setMeridian] = useState<boolean>(false);
+
+  const getDateString = useCallback(
+    (timeZone: string) => {
+      const template = meridian ? 'hh:ma' : 'HH:mm';
+      return format(new Date(), template, { timeZone });
+    },
+    [meridian]
+  );
 
   const renderExtraFooter = useCallback(
     (): React.ReactNode => (
@@ -95,17 +103,16 @@ export const TimezonePicker = ({
   );
 
   const renderMenuItem = useCallback(
-    (label: React.ReactNode, item: ItemDataType & TimezonePickerDataItem): React.ReactNode => {
-      const { timezone: timeZone } = item;
-      const template = meridian ? 'hh:mma' : 'HH:mm';
-      return (
-        <div className={prefix('menu-item')}>
-          <div>{label}</div>
-          <div>{format(new Date(), template, { timeZone })}</div>
-        </div>
-      );
-    },
-    [meridian]
+    (
+      label: React.ReactNode,
+      { timezone: timeZone }: ItemDataType & TimezonePickerDataItem
+    ): React.ReactNode => (
+      <div className={prefix('menu-item')}>
+        <div>{label}</div>
+        <div>{getDateString(timeZone)}</div>
+      </div>
+    ),
+    [getDateString]
   );
 
   const handleChange = useCallback(
