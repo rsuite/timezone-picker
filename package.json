@@ -17,14 +17,13 @@
   ],
   "scripts": {
     "dev": "parcel examples/index.html",
-    "build": "parcel build src/index.tsx -d lib --no-source-maps",
+    "build": "node scripts/copyStyles.js && tsc",
     "lint": "yarn lint:js && yarn lint:style",
     "lint:js": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx src examples",
     "lint:style": "stylelint \"src/**/*.less\"",
     "lint:fix": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx --fix src examples",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "release": "yarn build && npm publish",
     "cz": "git add . && git cz"
   },
   "repository": {
@@ -67,6 +66,7 @@
     "jest": "25.5.4",
     "less": "^3.11.1",
     "lodash": "^4.17.15",
+    "ncp": "^2.0.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-less-js-enabled": "^1.0.2",
     "prettier": "2.0.5",
@@ -74,6 +74,7 @@
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "regenerator-runtime": "^0.13.5",
+    "rimraf": "^3.0.2",
     "rsuite": "^4.7.5",
     "stylelint": "^13.3.3",
     "stylelint-config-standard": "^20.0.0",
