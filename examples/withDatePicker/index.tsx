@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { DatePicker } from 'rsuite';
-import TimezonePicker from '../../src';
+import TimeZonePicker from '../../src';
 
 const WithDatePicker = (): JSX.Element => {
   const [timeZone, setTimeZone] = useState<string>();
   return (
     <div>
-      <TimezonePicker
-        onSelect={(value) => {
+      <TimeZonePicker
+        onChange={(value) => {
           setTimeZone(value);
         }}
       />
-      <DatePicker format="YYYY-MM-DD HH:mm:ss" timeZone={timeZone} />
+      <DatePicker format="yyyy-MM-dd HH:mm:ss" timeZone={timeZone} />
     </div>
   );
 };

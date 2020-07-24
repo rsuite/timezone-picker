@@ -57,7 +57,7 @@ const renderValue = (content): React.ReactNode => (
   </div>
 );
 
-export const TimezonePicker = ({
+export const TimeZonePicker = ({
   disableContinentGroup = false,
   placeholder,
   onChange,
@@ -162,5 +162,5 @@ export const TimezonePicker = ({
   );
 };
 
-TimezonePicker.displayName = 'TimezonePicker';
-export default TimezonePicker;
+TimeZonePicker.displayName = 'TimezonePicker';
+export default TimeZonePicker;

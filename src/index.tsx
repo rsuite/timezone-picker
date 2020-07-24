@@ -1,5 +1,5 @@
-import TimezonePicker from './TimezonePicker';
+import TimeZonePicker from './TimeZonePicker';
 
-export { TimezonePicker };
+export { TimeZonePicker };
 
-export default TimezonePicker;
+export default TimeZonePicker;
