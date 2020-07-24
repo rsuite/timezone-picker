@@ -10,7 +10,7 @@ npm i @rsuite/timezone-picker
 
 #### PeerDependency
   - react >= 16.8
-  - rsuite >= 4.0
+  - rsuite >= 5.0
 
 #### Usage
 ```typescript
@@ -19,7 +19,7 @@ import '@rsuite/timezone-picker/lib/styles/index.less';
 
 export default () => {
   return (
-    <TimezonePicker />
+    <TimeZonePicker />
   );
 }
 ```
@@ -30,7 +30,7 @@ export default () => {
 | -------------------- | ----------------------------------------------------------------------------------- | ------------------------------------ |
 | disableContinentGroup | boolean`(false)`                                                                   | 禁用按大洲分组                        |
 
-此外 TimezonePicker 还继承了大多数的 [@rsuite/SelectPicker Props](https://rsuitejs.com/components/select-picker/#%3CSelectPicker%3E)
+此外 TimeZonePicker 还继承了大多数的 [@rsuite/SelectPicker Props](https://rsuitejs.com/components/select-picker/#%3CSelectPicker%3E)
 
 > 注意: TimezonePicker 并不是支持 SelectPicker 所有的属性，以下属性是不支持的。 
 > - `data`
