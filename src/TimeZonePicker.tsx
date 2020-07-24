@@ -7,13 +7,13 @@ import { SelectPickerProps } from 'rsuite/lib/SelectPicker';
 import { formatToTimeZone as format } from 'date-fns-timezone';
 import { listTimeZones } from 'timezone-support';
 
-export interface TimezonePickerDataItem {
+export interface TimeZonePickerDataItem {
   timezone: string;
   continent: string;
   name: string;
 }
 
-export const transformTimezonePickerData = (data: string[]): TimezonePickerDataItem[] =>
+export const transformTimeZonePickerData = (data: string[]): TimeZonePickerDataItem[] =>
   data.map((item) => {
     const index = item.lastIndexOf('/');
     let continent;
@@ -39,11 +39,11 @@ const UNHANDLED_PROPS = ['data', 'valueKey', 'labelKey', 'renderExtraFooter', 'g
 
 type OmitSelectPickerProps = 'data' | 'valueKey' | 'labelKey' | 'renderExtraFooter' | 'groupBy';
 
-export interface TimezonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
+export interface TimeZonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
   disableContinentGroup?: boolean;
   onSelect?: (
     value: string,
-    item: ItemDataType & TimezonePickerDataItem,
+    item: ItemDataType & TimeZonePickerDataItem,
     event: React.SyntheticEvent
   ) => void;
 }
@@ -66,11 +66,11 @@ export const TimeZonePicker = ({
   value: propsValue,
   defaultValue,
   ...props
-}: TimezonePickerProps): React.ReactElement<TimezonePickerProps> => {
+}: TimeZonePickerProps): React.ReactElement<TimeZonePickerProps> => {
   props = omit(props, UNHANDLED_PROPS);
   const [value, setValue] = useState<string>(propsValue ?? defaultValue);
-  const data = useMemo<TimezonePickerDataItem[]>(
-    () => transformTimezonePickerData(TIME_ZONE_LIST),
+  const data = useMemo<TimeZonePickerDataItem[]>(
+    () => transformTimeZonePickerData(TIME_ZONE_LIST),
     []
   );
   const labelKey = 'name';
@@ -105,7 +105,7 @@ export const TimeZonePicker = ({
   const renderMenuItem = useCallback(
     (
       label: React.ReactNode,
-      { timezone: timeZone }: ItemDataType & TimezonePickerDataItem
+      { timezone: timeZone }: ItemDataType & TimeZonePickerDataItem
     ): React.ReactNode => (
       <div className={prefix('menu-item')}>
         <div>{label}</div>
@@ -125,7 +125,7 @@ export const TimeZonePicker = ({
   const handleSelect = useCallback(
     (
       nextValue: string,
-      item: ItemDataType & TimezonePickerDataItem,
+      item: ItemDataType & TimeZonePickerDataItem,
       event: React.SyntheticEvent<any>
     ) => {
       setValue(nextValue);

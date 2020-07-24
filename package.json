@@ -1,135 +1,104 @@
 {
-	"name": "@rsuite/timezone-picker",
-	"version": "1.0.0",
-	"description": "timezone picker",
-	"main": "lib/index.js",
-	"typings": "lib/index.d.ts",
-	"directories": {
-		"doc": "docs",
-		"lib": "lib",
-		"example": "examples"
-	},
-	"files": [
-		"CHANGELOG.md",
-		"README.md",
-		"lib",
-		"src"
-	],
-	"scripts": {
-		"start": "yarn dev",
-		"dev": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --mode development --open",
-		"build": "cross-env NODE_ENV=production && yarn lint && yarn build:lib && yarn build:resources",
-		"build:lib": "rimraf lib && cross-env NODE_ENV=production babel src --ignore 'src/*.d.ts','src/**/*.d.ts' --extensions '.ts,.tsx,.js,.jsx' --out-dir lib",
-		"build:docs": "rimraf build && cross-env NODE_ENV=production webpack --mode production",
-		"build:types": "tsc --declaration --emitDeclarationOnly --declarationDir lib -p tsconfig-only-src.json",
-		"build:resources": "mkdir -p lib/styles/ && mkdir -p lib/assets && ncp src/*.less lib/styles && ncp src/assets lib/assets",
-		"lint": "yarn lint:js && yarn lint:style",
-		"lint:js": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx src examples",
-		"lint:style": "stylelint \"src/**/*.less\"",
-		"lint:fix": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx --fix src examples",
-		"test": "jest --coverage",
-		"test:watch": "jest --watch",
-		"release": "yarn build && npm publish",
-		"cz": "git add . && git cz"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:rsuite/timezone-picker.git"
-	},
-	"keywords": [
-		"rsuite",
-		"react"
-	],
-	"author": "leihancn <leihanchenzhou@outlook.com>",
-	"license": "MIT",
-	"devDependencies": {
-		"@babel/cli": "^7.8.4",
-		"@babel/core": "^7.9.6",
-		"@babel/plugin-proposal-class-properties": "7.0.0",
-		"@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.1",
-		"@babel/plugin-proposal-optional-chaining": "7.6.0",
-		"@babel/plugin-transform-proto-to-assign": "7.0.0",
-		"@babel/plugin-transform-runtime": "7.1.0",
-		"@babel/preset-env": "7.7.1",
-		"@babel/preset-react": "7.7.0",
-		"@babel/preset-typescript": "7.7.2",
-		"@commitlint/cli": "^8.3.5",
-		"@commitlint/config-conventional": "^8.3.4",
-		"@types/date-fns": "^2.6.0",
-		"@types/enzyme": "^3.10.5",
-		"@types/jest": "25.2.2",
-		"@types/lodash": "^4.14.157",
-		"@types/react": "^16.9.35",
-		"@types/react-dom": "^16.9.8",
-		"@typescript-eslint/eslint-plugin": "^3.4.0",
-		"@typescript-eslint/parser": "^3.4.0",
-		"babel-loader": "^8.1.0",
-		"babel-plugin-lodash": "^3.3.4",
-		"babel-plugin-transform-dev": "^2.0.1",
-		"babel-preset-rsuite": "^4.0.1",
-		"core-js": "^3.6.5",
-		"cross-env": "^7.0.2",
-		"css-loader": "^3.5.3",
-		"cz-conventional-changelog": "3.2.0",
-		"date-fns": "^2.14.0",
-		"date-fns-timezone": "^0.1.4",
-		"enzyme": "^3.11.0",
-		"enzyme-adapter-react-16": "^1.15.2",
-		"eslint": "6.6.0",
-		"eslint-config-prettier": "^6.11.0",
-		"eslint-plugin-prettier": "^3.1.4",
-		"eslint-plugin-react": "^7.20.1",
-		"eslint-plugin-react-hooks": "^4.0.4",
-		"file-loader": "^6.0.0",
-		"fork-ts-checker-webpack-plugin": "^4.1.3",
-		"html-webpack-plugin": "^4.3.0",
-		"husky": "4.2.2",
-		"jest": "25.5.4",
-		"less": "^3.11.1",
-		"less-loader": "^6.1.0",
-		"lodash": "^4.17.15",
-		"mini-css-extract-plugin": "^0.9.0",
-		"ncp": "^2.0.0",
-		"prettier": "2.0.5",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"react-hot-loader": "^4.12.21",
-		"react-test-renderer": "^16.13.1",
-		"regenerator-runtime": "^0.13.5",
-		"rimraf": "^3.0.2",
-		"rsuite": "^4.7.5",
-		"stylelint": "^13.3.3",
-		"stylelint-config-standard": "^20.0.0",
-		"ts-jest": "25.5.1",
-		"typescript": "^3.8.3",
-		"uglifyjs-webpack-plugin": "^2.2.0",
-		"url-loader": "^4.1.0",
-		"webpack": "^4.43.0",
-		"webpack-cli": "^3.3.11",
-		"webpack-dev-server": "^3.11.0"
-	},
-	"resolutions": {
-		"@types/react": "^16.9.35"
-	},
-	"config": {
-		"commitizen": {
-			"path": "./node_modules/cz-conventional-changelog"
-		}
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "yarn lint",
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-		}
-	},
-	"peerDependencies": {
-		"react": ">=16.8.0",
-		"react-dom": ">=16.8.0",
-		"rsuite": ">=4.0.0"
-	},
-	"browserslist": [
-		"> 1%",
-		"last 2 versions",
-		"ie >= 10"
-	]
+  "name": "@rsuite/timezone-picker",
+  "version": "1.0.0",
+  "description": "timezone picker",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "example": "examples"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "README.md",
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "dev": "parcel examples/index.html",
+    "build": "parcel build src/index.tsx -d lib --no-source-maps",
+    "lint": "yarn lint:js && yarn lint:style",
+    "lint:js": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx src examples",
+    "lint:style": "stylelint \"src/**/*.less\"",
+    "lint:fix": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx --fix src examples",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "release": "yarn build && npm publish",
+    "cz": "git add . && git cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rsuite/timezone-picker.git"
+  },
+  "keywords": [
+    "rsuite",
+    "react"
+  ],
+  "author": "leihancn <leihanchenzhou@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "7.7.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@types/date-fns": "^2.6.0",
+    "@types/enzyme": "^3.10.5",
+    "@types/jest": "25.2.2",
+    "@types/lodash": "^4.14.157",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "cross-env": "^7.0.2",
+    "cz-conventional-changelog": "3.2.0",
+    "date-fns": "^2.14.0",
+    "date-fns-timezone": "^0.1.4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "6.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.1",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "husky": "4.2.2",
+    "jest": "25.5.4",
+    "less": "^3.11.1",
+    "lodash": "^4.17.15",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-less-js-enabled": "^1.0.2",
+    "prettier": "2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
+    "regenerator-runtime": "^0.13.5",
+    "rsuite": "^4.7.5",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "ts-jest": "25.5.1",
+    "typescript": "^3.8.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "rsuite": ">=4.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "ie >= 10"
+  ]
 }

@@ -46,3 +46,4 @@ karma.sauce.conf.js
 dev-publish.sh
 dist
 docs/out/
+/.cache/

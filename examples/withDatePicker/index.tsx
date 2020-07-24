@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DatePicker } from 'rsuite';
-import TimeZonePicker from '../../src';
+import TimeZonePicker from '../../lib';
 
 const WithDatePicker = (): JSX.Element => {
   const [timeZone, setTimeZone] = useState<string>();
