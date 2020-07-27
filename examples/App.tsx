@@ -1,5 +1,5 @@
 import React from 'react';
-import WithDatePicker from './withDatePicker';
+import WithDatePicker from './with-date-picker';
 
 const App = (): JSX.Element => {
   return (

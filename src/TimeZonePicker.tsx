@@ -162,5 +162,4 @@ export const TimeZonePicker = ({
   );
 };
 
-TimeZonePicker.displayName = 'TimezonePicker';
 export default TimeZonePicker;
