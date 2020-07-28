@@ -78,7 +78,7 @@ export const TimeZonePicker = ({
 
   const getDateString = useCallback(
     (timeZone: string) => {
-      const template = meridian ? 'hh:ma' : 'HH:mm';
+      const template = meridian ? 'hh:mma' : 'HH:mm';
       return format(new Date(), template, { timeZone });
     },
     [meridian]
