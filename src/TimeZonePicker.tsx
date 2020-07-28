@@ -39,7 +39,8 @@ const UNHANDLED_PROPS = ['data', 'valueKey', 'labelKey', 'renderExtraFooter', 'g
 
 type OmitSelectPickerProps = 'data' | 'valueKey' | 'labelKey' | 'renderExtraFooter' | 'groupBy';
 
-export interface TimeZonePickerProps extends Omit<SelectPickerProps, OmitSelectPickerProps> {
+export interface TimeZonePickerProps
+  extends Omit<Pick<SelectPickerProps, keyof SelectPickerProps>, OmitSelectPickerProps> {
   disableContinentGroup?: boolean;
   onSelect?: (
     value: string,
