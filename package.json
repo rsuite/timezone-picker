@@ -1,6 +1,6 @@
 {
   "name": "@rsuite/timezone-picker",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "timezone picker",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
