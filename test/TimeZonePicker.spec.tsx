@@ -2,6 +2,7 @@ import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import TimeZonePicker from '../src';
 import { pick } from 'lodash';
+import { Icon } from 'rsuite';
 
 describe('TimeZonePicker', () => {
   afterEach(() => {
@@ -68,5 +69,18 @@ describe('TimeZonePicker', () => {
     const listItems = queryAllByRole('listitem');
     expect(listItems.length).toBeGreaterThanOrEqual(1);
     expect(listItems[0].getAttribute('class')).not.toEqual('rs-picker-select-menu-group');
+  });
+
+  it('should custom icon string', function () {
+    const { container } = render(<TimeZonePicker defaultOpen virtualized={false} icon="apple" />);
+    const { container: iconContainer } = render(
+      <TimeZonePicker defaultOpen virtualized={false} icon={<Icon icon="apple" />} />
+    );
+    expect(
+      container.querySelector('.rs-icon').getAttribute('class').includes('apple')
+    ).toBeTruthy();
+    expect(
+      iconContainer.querySelector('.rs-icon').getAttribute('class').includes('apple')
+    ).toBeTruthy();
   });
 });

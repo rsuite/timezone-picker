@@ -1,11 +1,12 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useMemo, useState } from 'react';
 import { Icon, SelectPicker, Toggle } from 'rsuite';
 import { stylePrefix } from './utils';
-import { ItemDataType } from 'rsuite/lib/@types/common';
+import { ItemDataType, SVGIcon } from 'rsuite/lib/@types/common';
 import { omit } from 'lodash';
 import { SelectPickerProps } from 'rsuite/lib/SelectPicker';
 import { formatToTimeZone as format } from 'date-fns-timezone';
 import { listTimeZones } from 'timezone-support';
+import { IconNames } from 'rsuite/lib/Icon/Icon';
 
 export interface TimeZonePickerDataItem {
   timezone: string;
@@ -41,6 +42,7 @@ type OmitSelectPickerProps = 'data' | 'valueKey' | 'labelKey' | 'renderExtraFoot
 
 export interface TimeZonePickerProps
   extends Omit<Pick<SelectPickerProps, keyof SelectPickerProps>, OmitSelectPickerProps> {
+  icon?: ReactElement | IconNames | SVGIcon;
   disableContinentGroup?: boolean;
   onSelect?: (
     value: string,
@@ -51,16 +53,10 @@ export interface TimeZonePickerProps
 
 const prefix = stylePrefix('timezone-picker');
 
-const renderValue = (content): React.ReactNode => (
-  <div>
-    <Icon icon="globe2" className={prefix('placeholder-icon')} />
-    {content}
-  </div>
-);
-
 export const TimeZonePicker = ({
+  icon,
   disableContinentGroup = false,
-  placeholder,
+  placeholder = 'Select Time Zone',
   onChange,
   onSelect,
   onClean,
@@ -101,6 +97,22 @@ export const TimeZonePicker = ({
       </div>
     ),
     [meridian]
+  );
+
+  const renderValue = useCallback(
+    (content): React.ReactNode => {
+      return (
+        <div>
+          {typeof icon === 'string' || typeof icon === 'undefined' ? (
+            <Icon icon={icon ?? 'globe2'} className={prefix('placeholder-icon')} />
+          ) : (
+            <span className={prefix('placeholder-icon')}>{icon}</span>
+          )}
+          {content}
+        </div>
+      );
+    },
+    [icon]
   );
 
   const renderMenuItem = useCallback(
@@ -151,7 +163,7 @@ export const TimeZonePicker = ({
       labelKey={labelKey}
       valueKey={valueKey}
       groupBy={!disableContinentGroup && groupKey}
-      placeholder={placeholder ?? renderValue('Select Timezone')}
+      placeholder={renderValue(placeholder)}
       renderValue={renderValue}
       renderExtraFooter={renderExtraFooter}
       renderMenuItem={renderMenuItem}

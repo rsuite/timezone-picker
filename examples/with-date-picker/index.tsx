@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DatePicker } from 'rsuite';
+import { DatePicker, Icon } from 'rsuite';
 import TimeZonePicker from '../../lib';
 
 const WithDatePicker = (): JSX.Element => {
@@ -7,6 +7,7 @@ const WithDatePicker = (): JSX.Element => {
   return (
     <div>
       <TimeZonePicker
+        icon={<Icon icon="apple"></Icon>}
         onChange={(value) => {
           setTimeZone(value);
         }}
