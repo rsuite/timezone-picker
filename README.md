@@ -1,18 +1,18 @@
-## @rsuite/timezone-picker
+# @rsuite/timezone-picker
    时区选择器
 
-#### Installation
+## Installation
 ```
 yarn add @rsuite/timezone-picker
 // or use npm
 npm i @rsuite/timezone-picker
 ```
 
-#### PeerDependency
+## PeerDependency
   - react >= 16.8
   - rsuite >= 5.0
 
-#### Usage
+## Usage
 ```typescript
 import TimezonePicker from '@rsuite/timezone-picker';
 import '@rsuite/timezone-picker/lib/styles/index.less';
@@ -24,7 +24,7 @@ export default () => {
 }
 ```
 
-#### Props
+## Props
 
 | 属性名称             | 类型`(默认值)`                                                                      | 描述                                 |
 | -------------------- | ----------------------------------------------------------------------------------- | ------------------------------------ |
@@ -39,4 +39,4 @@ export default () => {
 > - `labelKey`
 > - `groupBy`
 
-#### Note
+## Note
