@@ -1,6 +1,8 @@
 # @rsuite/timezone-picker
    时区选择器
 
+[English][readme-en] | 中文版
+
 ## Installation
 ```
 yarn add @rsuite/timezone-picker
@@ -8,9 +10,6 @@ yarn add @rsuite/timezone-picker
 npm i @rsuite/timezone-picker
 ```
 
-## PeerDependency
-  - react >= 16.8
-  - rsuite >= 5.0
 
 ## Usage
 ```typescript
@@ -40,3 +39,6 @@ export default () => {
 > - `groupBy`
 
 ## Note
+#### PeerDependency
+  - react >= 16.8
+  - rsuite >= 5.0
