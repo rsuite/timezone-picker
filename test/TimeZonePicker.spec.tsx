@@ -27,9 +27,6 @@ describe('TimeZonePicker', () => {
     expect(container.querySelector('.rs-picker-toggle-value').firstChild as HTMLElement)
       .toMatchInlineSnapshot(`
       <div>
-        <i
-          class="timezone-picker-placeholder-icon rs-icon rs-icon-globe2"
-        />
         Africa/Abidjan
       </div>
     `);
