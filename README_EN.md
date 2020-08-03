@@ -1,7 +1,7 @@
 # @rsuite/timezone-picker
 time zone picker for rsuite
 
-English | [中文版](readme)
+English | [中文版](README.md)
 
 ## Installation
 
