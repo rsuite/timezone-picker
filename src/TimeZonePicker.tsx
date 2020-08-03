@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useMemo, useState } from 'react';
-import { Icon, SelectPicker, Toggle } from 'rsuite';
+import { Icon, SelectPicker } from 'rsuite';
 import { stylePrefix } from './utils';
 import { ItemDataType, SVGIcon } from 'rsuite/lib/@types/common';
 import { omit } from 'lodash';
@@ -73,30 +73,10 @@ export const TimeZonePicker = ({
   const labelKey = 'name';
   const valueKey = 'timezone';
   const groupKey = 'continent';
-  // 12小时制，被勾选的时候为12小时制，否则为24小时制
-  const [meridian, setMeridian] = useState<boolean>(false);
 
   const getDateString = useCallback(
-    (timeZone: string) => {
-      const template = meridian ? 'hh:mma' : 'HH:mm';
-      return format(new Date(), template, { timeZone });
-    },
-    [meridian]
-  );
-
-  const renderExtraFooter = useCallback(
-    (): React.ReactNode => (
-      <div className={prefix('extra-footer')}>
-        <Toggle
-          checked={meridian}
-          onChange={setMeridian}
-          size="md"
-          checkedChildren="12h"
-          unCheckedChildren="24h"
-        />
-      </div>
-    ),
-    [meridian]
+    (timeZone: string) => format(new Date(), '[GMT]Z', { timeZone }),
+    []
   );
 
   const renderValue = useCallback(
@@ -165,7 +145,6 @@ export const TimeZonePicker = ({
       groupBy={!disableContinentGroup && groupKey}
       placeholder={renderValue(placeholder)}
       renderValue={renderValue}
-      renderExtraFooter={renderExtraFooter}
       renderMenuItem={renderMenuItem}
       onChange={handleChange}
       onSelect={handleSelect}
