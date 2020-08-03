@@ -81,13 +81,17 @@ export const TimeZonePicker = ({
 
   const renderValue = useCallback(
     (content): React.ReactNode => {
+      let prefixIcon = null;
+
+      if (typeof icon === 'string') {
+        prefixIcon = <Icon icon={icon} className={prefix('placeholder-icon')} />;
+      } else if (typeof icon === 'object') {
+        prefixIcon = <span className={prefix('placeholder-icon')}>{icon}</span>;
+      }
+
       return (
         <div>
-          {typeof icon === 'string' || typeof icon === 'undefined' ? (
-            <Icon icon={icon ?? 'globe2'} className={prefix('placeholder-icon')} />
-          ) : (
-            <span className={prefix('placeholder-icon')}>{icon}</span>
-          )}
+          {prefixIcon}
           {content}
         </div>
       );

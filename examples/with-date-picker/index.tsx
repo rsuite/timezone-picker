@@ -7,7 +7,7 @@ const WithDatePicker = (): JSX.Element => {
   return (
     <div>
       <TimeZonePicker
-        icon={<Icon icon="apple"></Icon>}
+        icon="apple"
         onChange={(value) => {
           setTimeZone(value);
         }}
