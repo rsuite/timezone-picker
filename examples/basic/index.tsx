@@ -2,7 +2,7 @@ import * as React from 'react';
 import TimeZonePicker from '../../src/TimeZonePicker';
 import { useState } from 'react';
 
-const Basic = () => {
+const Basic = (): JSX.Element => {
   const [value, setValue] = useState<string>('Asia/Shanghai');
 
   return (

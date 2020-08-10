@@ -1,7 +1,7 @@
 import TimeZonePicker from '../../src/TimeZonePicker';
 import React from 'react';
 
-const DisableGroup = () => {
+const DisableGroup = (): JSX.Element => {
   return (
     <main>
       <h4>Disable group</h4>

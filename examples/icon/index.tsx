@@ -1,7 +1,7 @@
 import TimeZonePicker from '../../src/TimeZonePicker';
 import React from 'react';
 
-const Icon = () => {
+const Icon = (): JSX.Element => {
   return (
     <main>
       <h4>Prefix icon</h4>
