@@ -1,6 +1,8 @@
 # @rsuite/timezone-picker
 time zone picker for rsuite
 
+![npm](https://img.shields.io/npm/v/@rsuite/timezone-picker?color=green) ![Node.js CI](https://github.com/rsuite/timezone-picker/workflows/Node.js%20CI/badge.svg)
+
 English | [中文版](README.md)
 
 ## Installation
