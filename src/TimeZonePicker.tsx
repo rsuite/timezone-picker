@@ -43,7 +43,7 @@ type OmitSelectPickerProps = 'data' | 'valueKey' | 'labelKey' | 'renderExtraFoot
 export interface TimeZonePickerProps
   extends Omit<Pick<SelectPickerProps, keyof SelectPickerProps>, OmitSelectPickerProps> {
   icon?: ReactElement | IconNames | SVGIcon;
-  disableContinentGroup?: boolean;
+  disableGroup?: boolean;
   onSelect?: (
     value: string,
     item: ItemDataType & TimeZonePickerDataItem,
@@ -55,7 +55,7 @@ const prefix = stylePrefix('timezone-picker');
 
 export const TimeZonePicker = ({
   icon,
-  disableContinentGroup = false,
+  disableGroup = false,
   placeholder = 'Select Time Zone',
   onChange,
   onSelect,
@@ -146,7 +146,7 @@ export const TimeZonePicker = ({
       data={data}
       labelKey={labelKey}
       valueKey={valueKey}
-      groupBy={!disableContinentGroup && groupKey}
+      groupBy={!disableGroup && groupKey}
       placeholder={renderValue(placeholder)}
       renderValue={renderValue}
       renderMenuItem={renderMenuItem}

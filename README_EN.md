@@ -26,7 +26,7 @@ export default () => {
 
 | Property              | Type`(Default)`                                  | Description                                             |
 | --------------------- | ------------------------------------------------ | ------------------------------------------------------- |
-| disableContinentGroup | boolean`(false)`                                 | Disable grouping by continent                           |
+| disableGroup          | boolean`(false)`                                 | Disable grouping                                        |
 | icon                  | union: SVGSymbol,string,ReactElement             | Customize the icon in front of the value or placeholder |
 
 In addition, TimeZonePicker also inherits most of the [@rsuite/SelectPickerProps](https://rsuitejs.com/components/select-picker/#%3CSelectPicker%3E)

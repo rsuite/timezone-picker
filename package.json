@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "dev": "parcel examples/index.html",
+    "build:examples": "rm -rf assets && parcel build examples/index.html -d assets/ --no-source-maps --public-url ./",
     "build": "node scripts/copyStyles.js && tsc",
     "lint": "yarn lint:js && yarn lint:style",
     "lint:js": "eslint -c .eslintrc.js --no-eslintrc --ext .ts,.tsx src examples",

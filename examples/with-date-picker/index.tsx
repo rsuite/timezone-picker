@@ -5,15 +5,16 @@ import TimeZonePicker from '../../src';
 const WithDatePicker = (): JSX.Element => {
   const [timeZone, setTimeZone] = useState<string>();
   return (
-    <div>
+    <main>
+      <h4>Combine with DatePicker</h4>
       <TimeZonePicker
-        icon="apple"
         onChange={(value) => {
           setTimeZone(value);
         }}
+        className="inline-item"
       />
       <DatePicker format="yyyy-MM-dd HH:mm:ss" timeZone={timeZone} />
-    </div>
+    </main>
   );
 };
 

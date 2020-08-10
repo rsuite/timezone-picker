@@ -59,9 +59,9 @@ describe('TimeZonePicker', () => {
     fireEvent.click(queryByText('Tokyo'));
   });
 
-  it('should disabled continent group', function () {
+  it('should disabled group', function () {
     const { container, baseElement, queryAllByRole } = render(
-      <TimeZonePicker defaultOpen virtualized={false} disableContinentGroup />
+      <TimeZonePicker defaultOpen virtualized={false} disableGroup />
     );
     const listItems = queryAllByRole('listitem');
     expect(listItems.length).toBeGreaterThanOrEqual(1);
